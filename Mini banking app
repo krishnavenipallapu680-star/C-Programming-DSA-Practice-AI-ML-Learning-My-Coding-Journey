@@ -1,0 +1,81 @@
+#include <stdio.h>
+
+struct Account
+{
+    int accNo;
+    char name[50];
+    float balance;
+};
+
+int main()
+{
+    struct Account acc;
+    FILE *file;
+    int choice;
+
+    do
+    {
+        printf("\n--- Mini Banking App ---\n");
+        printf("1. Create Account\n");
+        printf("2. View Account\n");
+        printf("3. Deposit Money\n");
+        printf("4. Exit\n");
+
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                file = fopen("account.txt", "w");
+
+                printf("Enter Account Number: ");
+                scanf("%d", &acc.accNo);
+
+                printf("Enter Name: ");
+                scanf("%s", acc.name);
+
+                printf("Enter Initial Balance: ");
+                scanf("%f", &acc.balance);
+
+                fprintf(file, "%d %s %.2f", acc.accNo, acc.name, acc.balance);
+
+                fclose(file);
+
+                printf("Account created successfully!\n");
+                break;
+
+            case 2:
+                file = fopen("account.txt", "r");
+
+                if(file == NULL)
+                {
+                    printf("No account found\n");
+                    break;
+                }
+
+                fscanf(file, "%d %s %f", &acc.accNo, acc.name, &acc.balance);
+
+                printf("\nAccount Number: %d", acc.accNo);
+                printf("\nName: %s", acc.name);
+                printf("\nBalance: %.2f\n", acc.balance);
+
+                fclose(file);
+                break;
+
+            case 3:
+                printf("Deposit feature can be added by updating file data.\n");
+                break;
+
+            case 4:
+                printf("Thank you!");
+                break;
+
+            default:
+                printf("Invalid choice");
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
